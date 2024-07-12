@@ -1,0 +1,51 @@
+
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    </head>
+    <title>
+        WebSocket with JS and Spring Boot.
+    </title>
+    <body>
+        <h1>WebSocket Testing!! using spring boot and JS</h1>
+        <br>
+        <span id="update">0</span>
+    </body>
+
+    <script>
+        const broker = 'ws://127.0.0.1:8080/portfolio';
+        const client = Stomp.client(broker);
+        client.connect(null, null, connectCallback, errorCallback);
+
+        function connectCallback(frame) {
+            console.log('Connected to WebSocket broker!');
+            client.subscribe('/topic/install', messageCallback)
+        }
+
+        function errorCallback(error) {
+            console.error('Error connecting to broker:', error);
+        }
+
+        function messageCallback(message) {
+            const messageBody = message.body;
+            console.log('Received message: ', messageBody);
+            let val = parseInt(document.getElementById('update').innerHTML);
+            document.getElementById('update').innerHTML = ++val;
+        }
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
